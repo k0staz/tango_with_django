@@ -7,13 +7,14 @@ class PagesInLine(admin.TabularInline):
 
 class CategoryAdmin(admin.ModelAdmin):
     fieldsets = [
-        (None, {'fields': ['name']}),
+        (None, {'fields': ['name', 'slug']}),
         ('Statistic', {'fields': ['views', 'likes'], 'classes': ['collapse']}),
     ]
     inlines = [PagesInLine]
     list_display = ('name', 'views', 'likes')
     list_filter = ['views', 'likes']
     search_fields = ['name']
+    prepopulated_fields = {'slug':('name',)}
 
 class PageAdmin(admin.ModelAdmin):
     list_display = ('title', 'category', 'url')
