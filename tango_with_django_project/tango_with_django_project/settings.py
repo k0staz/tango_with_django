@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
+from secrets import SECRET_KEY
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -27,8 +28,7 @@ LOGIN_URL = '/accounts/login/'
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '&npa2%uc!@l_dml^3)2+7=+p_&myd-pnu)mgl3kl1zki14rt11'
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
