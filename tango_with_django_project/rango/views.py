@@ -97,10 +97,6 @@ def add_page(request, category_name_slug):
     context_dict = {'form': form, 'category': category}
     return render(request, 'rango/add_page.html', context_dict)
 
-@login_required
-def restricted(request):
-    return render(request, 'rango/restricted.html', {})
-
 def get_server_side_cookie(request, cookie, default_val=None):
     val = request.session.get(cookie)
     if not val:
@@ -191,3 +187,57 @@ def list_profiles(request):
     userprofile_list = UserProfile.objects.all()
     
     return render(request, 'rango/list_profiles.html', {'userprofile_list': userprofile_list})
+
+@login_required
+def like_category(request):
+    likes = 0
+    if request.method == 'GET':
+        cat_id = request.GET['category_id']
+        cat = Category.objects.get(id=int(cat_id))
+        if cat:
+            cat.likes += 1
+            likes = cat.likes
+            cat.save()
+    return HttpResponse(likes)
+
+def get_category_list(max_results=0, starts_with=''):
+    cat_list = []
+
+    if starts_with:
+        cat_list = Category.objects.filter(name__istartswith=starts_with)
+
+    if max_results > 0:
+        if len(cat_list) > max_results:
+            cat_list = cat_list[:max_results]
+    
+    return cat_list
+
+def suggest_category(request):
+    cat_list = []
+    starts_with = ''
+
+    if request.method == 'GET':
+        starts_with = request.GET['suggestion']
+    
+    cat_list = get_category_list(8, starts_with)
+
+    return render(request, 'rango/cats.html', {'cats': cat_list})
+
+@login_required
+def auto_add_page(request):
+    cat_id = None
+    url = None
+    title = None
+    context_dict = {}
+
+    if request.method == 'GET':
+        cat_id = request.GET['category_id']
+        url = request.GET['url']
+        title = request.GET['title']
+        if cat_id:
+            category = Category.objects.get(id=int(cat_id))
+            p = Page.objects.get_or_create(category=category, url=url, title=title)
+            pages = Page.objects.filter(category=category).order_by('-views')
+            context_dict['pages'] = pages
+    
+    return render(request, 'rango/page_list.html', context_dict)

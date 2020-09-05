@@ -23,9 +23,30 @@ def populate():
         {"title":"Flask", "url":"http://flask.pocoo.org", "views": 32}
     ]
 
+    pascal_pages = [
+        {"title":"Free Pascal", "url":"https://www.freepascal.org/", "views": 64},
+        {"title":"Pascal Tutorial", "url":"https://www.tutorialspoint.com/pascal/index.htm", "views": 32},
+        {"title":"PascalProgramming", "url":"http://www.pascal-programming.info/index.php", "views": 16} 
+    ]
+
+    perl_pages = [
+        {"title":"The Perl programming language", "url":"https://www.perl.org/", "views": 64},
+        {"title":"Beginner's Introduction to Perl", "url":"https://www.perl.com/pub/2000/10/begperl1.html/", "views": 32},
+        {"title":"The Perl for MS Windows", "url":"http://strawberryperl.com/", "views": 16} 
+    ]
+
+    prolog_pages = [
+        {"title":"SWI-Prolog", "url":"https://www.swi-prolog.org/", "views": 64},
+        {"title":"Visual Prolog", "url":"https://www.visual-prolog.com/", "views": 32},
+        {"title":"Prolog Tutorial", "url":"https://www.cpp.edu/~jrfisher/www/prolog_tutorial/pt_framer.html", "views": 16} 
+    ]
+
     cats = {"Python": {"pages": python_pages, "views": 128, "likes": 64},
         "Django": {"pages": django_pages, "views": 64, "likes": 32},
-        "Other Frameworks": {"pages": other_pages, "views": 32, "likes": 16} 
+        "Other Frameworks": {"pages": other_pages, "views": 32, "likes": 16},
+        "Pascal": {"pages": pascal_pages, "views": 34, "likes": 8},
+        "Perl": {"pages": perl_pages, "views": 24, "likes": 4,
+        "Prolog": {"pages": prolog_pages, "views": 10, "likes": 2}
     }
 
     for cat, cat_data in cats.items():
