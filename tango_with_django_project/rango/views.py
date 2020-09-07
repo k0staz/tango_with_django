@@ -162,7 +162,7 @@ def register_profile(request):
     
     context_dict = {'form': form}
 
-    return render(request, 'rango/profile_registration.html', context_dict)
+    return render(request, 'registration/profile_registration.html', context_dict)
 
 @login_required
 def profile(request, username):
