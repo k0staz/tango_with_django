@@ -11,7 +11,12 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
-from tango_with_django_project.secrets import SECRET_KEY
+try:
+    from secrets import SECRET_KEY
+except ImportError:
+    SETTINGS_DIR = os.path.abspath(os.path.dirname(__file__))
+    generate_secret_key(os.path.join(SETTINGS_DIR, 'secrets.py'))
+    from secrets import SECRET_KEY
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
